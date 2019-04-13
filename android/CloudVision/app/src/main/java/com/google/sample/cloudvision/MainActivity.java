@@ -59,6 +59,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -103,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnContinue.setOnClickListener(view -> {
-            Intent intent = new Intent(this, Options.class);
+           // Toast.makeText(this, "Data Size: " + dataContainer.size(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, NewOptions.class);
             startActivity(intent);
         });
 
@@ -174,11 +176,7 @@ public class MainActivity extends AppCompatActivity {
         if (uri != null) {
             try {
                 // scale the image to save on bandwidth
-                Bitmap bitmap =
-                        scaleBitmapDown(
-                                MediaStore.Images.Media.getBitmap(getContentResolver(), uri),
-                                MAX_DIMENSION);
-
+                Bitmap bitmap = scaleBitmapDown(MediaStore.Images.Media.getBitmap(getContentResolver(), uri), MAX_DIMENSION);
                 callCloudVision(bitmap);
                 mMainImage.setImageBitmap(bitmap);
 
@@ -341,9 +339,11 @@ public class MainActivity extends AppCompatActivity {
         List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
         if (labels != null) {
             for (EntityAnnotation label : labels) {
-                message.append(String.format(Locale.US, "%.3f: %s", label.getScore(), label.getDescription()));
+                String score = String.format("%.2f", label.getScore());
+                message.append(String.format(Locale.US, "%.2f: %s", label.getScore(), label.getDescription()));
                 message.append("\n");
-                itemInfo = new GoogleVisionItemInfo(String.valueOf(label.getScore()), label.getDescription());
+
+                itemInfo = new GoogleVisionItemInfo(score, label.getDescription());
                 dataContainer.addData(itemInfo);
             }
         } else {
