@@ -42,18 +42,64 @@ public class ItemForm extends AppCompatActivity {
 
 
 
-        DataContainer data = DataContainer.instance();
+        //DataContainer data = DataContainer.instance();
         String definition = getIntent().getExtras().get("chosenIndex").toString();
-        String[] formData = new String[3];
+        RoomItemCollections collections = new RoomItemCollections(definition);
+
+        /**
+         * index 0: room
+         * index 1: price
+         * index 2: purchase location
+         */
+        String[] formData = collections.getAutoFillData();
 
         //Toast.makeText(this, definition, Toast.LENGTH_SHORT).show();
 
 
+        //test generated data to get which room its in
+
+
+
+
         TextView tbxName = findViewById(R.id.txtName);
         tbxName.setText(definition);
-
         TextView tbxRoom = findViewById(R.id.txtRoom);
+        TextView tbxPrice = findViewById(R.id.txtPrice);
+        TextView tbxModelNum = findViewById(R.id.txtModNum);
+        TextView tbxSerialNum = findViewById(R.id.txtSerialNum);
+        TextView tbxPurLoc = findViewById(R.id.txtPurchaseLoc);
 
+
+        if(formData[0] != null && formData[1] != null && formData[2] != null){
+            tbxRoom.setText(formData[0]);
+            tbxPrice.setText(formData[1]);
+            tbxPurLoc.setText(formData[2]);
+        }
+
+        Button btnUndoClear = findViewById(R.id.btnUndo);
+        btnUndoClear.setVisibility(View.INVISIBLE);
+
+        Button btnClear = findViewById(R.id.btnClear);
+        btnClear.setOnClickListener(view -> {
+            tbxName.setText(null);
+            tbxRoom.setText(null);
+            tbxPrice.setText(null);
+            tbxModelNum.setText(null);
+            tbxSerialNum.setText(null);
+            tbxPurLoc.setText(null);
+            btnUndoClear.setVisibility(View.VISIBLE);
+        });
+
+
+        btnUndoClear.setOnClickListener(view -> {
+            if(formData[0] != null && formData[1] != null && formData[2] != null) {
+                tbxName.setText(definition);
+                tbxRoom.setText(formData[0]);
+                tbxPrice.setText(formData[1]);
+                tbxPurLoc.setText(formData[2]);
+            }
+            btnUndoClear.setVisibility(View.INVISIBLE);
+        });
 
         Button btnSave = findViewById(R.id.btnSave);
         btnSave.setOnClickListener((view) -> {
@@ -108,7 +154,7 @@ public class ItemForm extends AppCompatActivity {
                 public void onComplete(@NonNull Task<List<Document>> task) {
                     if (task.isSuccessful()) {
                         Log.d("STITCH", "Found docs: " + task.getResult().toString());
-                        Toast.makeText(ItemForm.this, "Saved Document", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ItemForm.this, "Saved to DB", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     Log.e("STITCH", "Error: " + task.getException().toString());
