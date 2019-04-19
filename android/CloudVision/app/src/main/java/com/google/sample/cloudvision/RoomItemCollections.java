@@ -50,17 +50,18 @@ public class RoomItemCollections {
             }
             roomNumber++;
         }
-        return null;
+        return "Unknown";
     }
 
     private String getPrice(){
-        switch(roomNumber){
+        switch(roomNumber) {
             case 1:
                 return lrPrices[roomItemIndex];
             case 2:
                 return officePrices[roomItemIndex];
+            default:
+                return "Unknown";
         }
-        return null;
     }
 
     private String getPurchaseLocation(){
@@ -69,7 +70,8 @@ public class RoomItemCollections {
                 return "Target";
             case "OFFICE":
                 return "Best Buy";
+            default:
+                return "Unknown";
         }
-        return null;
     }
 }

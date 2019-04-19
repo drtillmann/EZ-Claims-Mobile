@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnContinue.setOnClickListener(view -> {
            // Toast.makeText(this, "Data Size: " + dataContainer.size(), Toast.LENGTH_SHORT).show();
+
             Intent intent = new Intent(this, NewOptions.class);
             startActivity(intent);
         });
@@ -338,17 +339,22 @@ public class MainActivity extends AppCompatActivity {
 
         List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
         if (labels != null) {
+            if(dataContainer.size() != 0){
+                dataContainer.clear();
+            }
             for (EntityAnnotation label : labels) {
                 String score = String.format("%.2f", label.getScore());
                 message.append(String.format(Locale.US, "%.2f: %s", label.getScore(), label.getDescription()));
                 message.append("\n");
 
                 itemInfo = new GoogleVisionItemInfo(score, label.getDescription());
+
                 dataContainer.addData(itemInfo);
             }
         } else {
             message.append("nothing");
         }
+        //dataSaved = true;
 
         return message.toString();
     }
