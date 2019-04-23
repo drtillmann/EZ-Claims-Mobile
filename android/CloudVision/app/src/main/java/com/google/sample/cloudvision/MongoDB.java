@@ -48,8 +48,8 @@ public class MongoDB {
         }
     }
 
-    public boolean save(String[] data){
-        String[] dataToSave = data;
+    public boolean save(List data){
+        List<String> dataToSave = data;
         client.getAuth().loginWithCredential(new AnonymousCredential()).continueWithTask(task -> {
             if (!task.isSuccessful()) {
                 Log.e("STITCH", "Login failed!");
@@ -59,14 +59,19 @@ public class MongoDB {
             final Document newDoc = new /*Document();*/Document("_id", ObjectId.get());
 
             //Document: Name, Room, Price, Mod Num, Ser Num, Purchase Loc
-            newDoc.put("Name", dataToSave[0]);
-            newDoc.put("Room", dataToSave[1]);
-            newDoc.put("Price", dataToSave[2]);
-            newDoc.put("ModelNum", dataToSave[3]);
-            newDoc.put("SerialNum", dataToSave[4]);
-            newDoc.put("Purchase_Location", dataToSave[5]);
+            newDoc.put("Name", dataToSave.get(0));
+            newDoc.put("Room", dataToSave.get(1));
+            newDoc.put("Price", dataToSave.get(2));
+            newDoc.put("ModelNum", dataToSave.get(3));
+            newDoc.put("SerialNum", dataToSave.get(4));
+            newDoc.put("Purchase_Location", dataToSave.get(5));
             newDoc.put("Product_URL", "");
-            newDoc.put("UserID", "");
+            newDoc.put("UserID", new ObjectId("5cbcff74ecc67b00173cafe6")); // id for un: scsu@gmail.com, pw: scsu
+
+            /**
+             * remove if this breaks everything
+             */
+            //newDoc.put("Image_Bitmap", dataToSave.get(6));
 
             return coll.insertOne(newDoc);//coll.updateOne(null, newDoc, new RemoteUpdateOptions().upsert(true));
 
