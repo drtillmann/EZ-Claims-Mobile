@@ -6,8 +6,8 @@ import java.util.List;
 
 public class RoomItemCollections {
 
-    private final String[] livingRoom = {"tv", "couch", "entertainment", "console", "game", "gaming"};
-    private final String[] lrPrices = {"1499.99", "2599.99", "249.99", "249.99", "59.99", "249.99"};
+    private final String[] livingRoom = {"television", "tv", "couch", "chair", "entertainment", "console", "game", "gaming"};
+    private final String[] lrPrices = {"1499.99", "899.99",  "2599.99", "249.99", "249.99", "59.99", "249.99", "199.99"};
 
     private final String[] office = {"chair", "desk", "monitor", "computer", "laptop", "keyboard"};
     private final String[] officePrices = {"99.99", "499.99", "199.99", "999.99", "1999.99", "49.99"};

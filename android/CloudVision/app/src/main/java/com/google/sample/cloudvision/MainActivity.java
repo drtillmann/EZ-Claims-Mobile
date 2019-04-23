@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 // scale the image to save on bandwidth
                 Bitmap bitmap = scaleBitmapDown(MediaStore.Images.Media.getBitmap(getContentResolver(), uri), MAX_DIMENSION);
+                dataContainer.setImage(bitmap);
                 callCloudVision(bitmap);
                 mMainImage.setImageBitmap(bitmap);
 

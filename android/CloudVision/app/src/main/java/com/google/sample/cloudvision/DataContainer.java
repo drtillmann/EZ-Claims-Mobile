@@ -1,5 +1,8 @@
 package com.google.sample.cloudvision;
 
+import android.graphics.Bitmap;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,12 +11,24 @@ public class DataContainer {
 
     private static List<Object> container;
     private static DataContainer dataContainer;
+    private static Bitmap image;
 
     /**
      * @Description: Default Constructor
      */
     private DataContainer(){
         container = new ArrayList<>();
+        image = null;
+    }
+
+    public void setImage(Bitmap bm){
+        this.image = bm;
+    }
+
+    public byte[] getImage(){
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        return bos.toByteArray();
     }
 
     /**

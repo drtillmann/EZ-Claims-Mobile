@@ -8,9 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemForm extends AppCompatActivity {
 
-    private String[] data = new String[6];
+    //private String[] data = new String[6];
+    private List<Object> data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,12 +92,17 @@ public class ItemForm extends AppCompatActivity {
             String serNum = tbxSerialNum.getText().toString().trim();
             String purLoc = tbxPurLoc.getText().toString().trim();
 
-            data[0] = (name.equals("")) ? "N/A" : name;
-            data[1] = (room.equals("")) ? "N/A" : room;
-            data[2] = (price.equals("")) ? "N/A" : price;
-            data[3] = (modNum.equals("")) ? "N/A" : modNum;
-            data[4] = (serNum.equals("")) ? "N/A" : serNum;
-            data[5] = (purLoc.equals("")) ? "N/A" : purLoc;
+            data.add((name.equals("")) ? "N/A" : name);
+            data.add((room.equals("")) ? "N/A" : room);
+            data.add((price.equals("")) ? "N/A" : price);
+            data.add((modNum.equals("")) ? "N/A" : modNum);
+            data.add((serNum.equals("")) ? "N/A" : serNum);
+            data.add((purLoc.equals("")) ? "N/A" : purLoc);
+
+            /**
+             * remove if causes problems
+             */
+            //data.add(DataContainer.instance().getImage());
 
             database.save(data);
             Intent intent = new Intent(this, MainActivity.class);
