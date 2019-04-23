@@ -16,7 +16,7 @@
     <string name="title_activity_item_form">New Item Form</string>
 
     <!-- Buttons -->
-    <string name="btnApproval">I like of these options</string>
+    <string name="btnApproval">I like one of these options</string>
     <string name="btnNext">Next</string>
 
     <!-- Messages -->
